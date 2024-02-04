@@ -6,6 +6,7 @@ $f3 = \Base::instance();
 
 $f3->set('ROOT', __DIR__.'/..');
 $f3->set('UI', $f3->get('ROOT')."/views/");
+$f3->set('TEMP',$f3->get('ROOT').'/tmp/');
 $f3->set('DB', new \DB\SQL('sqlite:'. $f3->get('ROOT').'/database/datas.sqlite'));
 $f3->set('ENCODING','UTF-8');
 $f3->set('LANGUAGE','fr-FR');
