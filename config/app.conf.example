@@ -1,0 +1,40 @@
+[globals]
+home_title="Booking Calendar"
+home_counter="Vous avez réalisé <strong>%PREV% réservation(s)</strong> sur 5 requises et vous vous êtes engagé à réaliser <strong>%NEXT% réservation(s)</strong> prochainement."
+max_booking_per_date=2
+day_reminder_email_delay=2
+debug_level=3
+website_url="https://votresiteweb.com"
+
+
+[colors.secondary]
+bgcolor="#e2e3e5"
+bdcolor="#d2d4d7"
+txtcolor="#2b2f32"
+
+[colors.success]
+bgcolor="#d1e7dd"
+bdcolor="#a7d1be"
+txtcolor="#0a3622"
+
+[colors.danger]
+bgcolor="#f8d7da"
+bdcolor="#f2b8be"
+txtcolor="#58151c"
+
+[colors.warning]
+bgcolor="#fff3cd"
+bdcolor="#ffe7a2"
+txtcolor="#664d03"
+
+[colors.dark]
+bgcolor="#ced4da"
+bdcolor="#afb6be"
+txtcolor="#495057"
+
+[email]
+from="noreply@votresiteweb.com"
+subject_invitation="Booking Calendat App"
+subject_reminder="Rappel de votre réservation"
+subject_hebdo="Créneaux disponibles"
+subject_confirmation="Confirmation de votre réservation"
