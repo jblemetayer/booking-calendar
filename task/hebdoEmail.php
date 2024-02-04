@@ -13,11 +13,11 @@ $f3->set('LANGUAGE','fr-FR');
 $f3->config($f3->get('ROOT').'/config/app.conf');
 $f3->set('DEBUG', 3);
 
-$dateNextWeek = strtotime('+1 week', strtotime(date('Y-m-d')));
+$today = strtotime(date('Y-m-d'));
 $firstDayWeek = new \DateTime();
 $lastDayWeek = new \DateTime();
-$firstDayWeek->setTimestamp(strtotime('last monday', $dateNextWeek));
-$lastDayWeek->setTimestamp(strtotime('next friday', $dateNextWeek));
+$firstDayWeek->setTimestamp(strtotime('next monday', $today));
+$lastDayWeek->setTimestamp(strtotime('next friday', $today));
 
 $rows = $f3->get('DB')->exec('select b.start_date, b.user_id, b.title from booking b WHERE b.user_id IS NOT NULL AND b.start_date >= "'.$firstDayWeek->format('Y-m-d').'" AND b.start_date <= "'.$lastDayWeek->format('Y-m-d').'"');
 
