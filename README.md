@@ -39,6 +39,7 @@ Création du dossier tmp utilisé par fatfree pour stocker les fichiers compilé
 ```
 mkdir tmp
 sudo chown www-data:username tmp/
+sudo chmod g+w tmp/
 ```
 
 Il faut créer le fichier de configuration config/app.conf à partir du modèle existant (app.conf.example) et l'adapter selon vos usages :
