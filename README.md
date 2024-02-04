@@ -32,7 +32,23 @@ Pour le lancer :
 php -S localhost:8000 -t public
 ```
 
-### Déployer avec apache
+## Configuration
+
+Il faut créer le fichier de configuration config/app.conf à partir du modèle existant (app.conf.example) et l'adapter selon vos usages :
+
+```
+cp config/app.conf.example config/app.conf
+```
+
+## Base de données
+
+La base de données SQLite est embarquée dans le projet. Il faut la créer à partir du modèle qui contient son schéma relationnel :
+
+```
+cp database/datas.sqlite.example database/datas.sqlite
+```
+
+## Déployer avec apache
 
 ```
 DocumentRoot /path/to/booking-calendar/public
@@ -51,13 +67,13 @@ DirectoryIndex index.php
 </Location>
 ```
 
-Créer le fichier .htpasswd contenant les identifiants d'accès à l'administration :
+Pour sécuriser l'accès à l'administration il faut créer le fichier .htpasswd contenant les identifiants d'accès à l'administration :
 
 ```
 sudo htpasswd -c /path/to/file/.htpasswd username
 ```
 
-Activer le mode rewrite :
+Activer le mode rewrite pour la prise en charge du routage :
 
 ```
 sudo a2enmod rewrite
