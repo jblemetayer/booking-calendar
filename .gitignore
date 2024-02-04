@@ -1,2 +1,5 @@
 /vendor/
 tmp/
+.htpasswd
+config/app.conf
+database/datas.sqlite
