@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ @title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/vendor/bootstrap5.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/vendor/bootstrap-icons1.11.2/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+  </head>
+
+  <body>
+
+    <header class="py-2">
+      <div class="container">
+          <h1 class="fw-bold text-center">
+            <span class="bi bi-calendar-week d-none d-md-inline"> {{ @title }}</span>
+            <span class="bi bi-calendar-week d-md-none"></span>
+          </h1>
+          <check if="{{ @user.id }}">
+            <div class="dropdown-center position-absolute top-0 end-0  mt-3 me-4 d-none d-md-inline">
+              <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person"></i> {{ @user.firstname }} {{ @user.lastname }}
+              </button>
+              <ul class="dropdown-menu">
+                <check if="{{ @user.is_admin }}">
+                  <li><a class="dropdown-item" href="/{{ @user.login }}/free-booking"><i class="bi bi-calendar2-plus"></i> Réserver un créneau libre</a></li>
+                  <li><a class="dropdown-item" href="/{{ @user.login }}/user-booking"><i class="bi bi-calendar-plus"></i> Réserver pour un utilisateur</a></li>
+                </check>
+                <li><a class="dropdown-item" href="/"><i class="bi bi-box-arrow-left"></i> Déconnexion</a></li>
+              </ul>
+            </div>
+            <div class="navbar d-md-none  position-absolute top-0 end-0  mt-1 me-3">
+              <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
+                <i class="bi bi-person"></i>
+              </button>
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="menu">
+                <div class="offcanvas-header">
+                  <h1 class="offcanvas-title">{{ @title }}</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body">
+                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <check if="{{ @user.is_admin }}">
+                      <li class="nav-item"><a class="nav-link" href="/{{ @user.login }}/free-booking"><i class="bi bi-calendar2-plus"></i> Réserver un créneau libre</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/{{ @user.login }}/user-booking"><i class="bi bi-calendar-plus"></i> Réserver pour un utilisateur</a></li>
+                    </check>
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-box-arrow-left"></i> Déconnexion</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </check>
+      </div>
+    </header>
+
+    <!-- Ici nous mettons le contenu de la page -->
+    <main class="container pt-4 pb-5">
+
+      <include href="{{ @content }}" />
+
+    </main>
+
+    <footer class="text-center text-muted mb-2 fixed-bottom opacity-75">
+        <small>Logiciel libre (<a href="">code source</a> ) — <i class="bi bi-gear"></i> <a href="/admin">Administration</a></small>
+    </footer>
+
+    <script src='/vendor/fullcalendar6.1.10/js/index.global.min.js'></script>
+    <script src='/vendor/fullcalendar6.1.10/js/locales-all.global.min.js'></script>
+    <script src='/vendor/fullcalendar6.1.10/js/bootstrap5/index.global.min.js'></script>
+    <script src='/vendor/bootstrap5.3.2/js/bootstrap.bundle.min.js'></script>
+    <script src='/js/app.js'></script>
+  </body>
+</html>

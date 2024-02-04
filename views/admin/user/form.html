@@ -1,0 +1,73 @@
+<form action="/admin/user/{{ @user.id }}/save" method="post">
+
+  <div class="row w-50 mx-auto">
+
+    <check if="{{ @user.id=='new' }}">
+      <true>
+        <h2 class="fw-bold mb-5">Nouvel utilisateur</h2>
+      </true>
+      <false>
+        <h2 class="fw-bold mb-5">Modification <small class="text-body-secondary">{{ @user.login }} - {{ @user.firstname }} {{ @user.lastname }}</small></h2>
+      </false>
+    </check>
+
+    <div class="col-12 mb-2">
+      <label for="userCategory" class="form-label">Categorie</label>
+      <input type="text" id="userCategory" class="form-control" name="category" list="categorySuggestions" value="{{ @user.category }}" required />
+      <datalist id="categorySuggestions">
+        <repeat group="{{ @suggestions }}" value="{{ @suggestion }}">
+        <option value="{{ @suggestion }}">{{ @suggestion }}</option>
+        </repeat>
+      </datalist>
+    </div>
+
+    <div class="col-6 mb-2">
+      <label for="userFirstname" class="form-label">Prénom</label>
+      <input type="text" id="userFirstname" class="form-control" name="firstname" value="{{ @user.firstname }}" />
+    </div>
+
+    <div class="col-6 mb-2">
+      <label for="userLastname" class="form-label">Nom</label>
+      <input type="text" id="userLastname" class="form-control" name="lastname" value="{{ @user.lastname }}" />
+    </div>
+
+    <div class="col-12 mb-4">
+      <label for="userEmail" class="form-label">Adresse email</label>
+      <input type="email" id="userEmail" class="form-control" name="email" value="{{ @user.email }}" required />
+    </div>
+
+    <div class="col-12 mb-4 form-check form-switch ms-3">
+      <label for="userAdmin" class="form-check-label">Administrateur</label>
+      <check if="{{ @user.is_admin }}">
+        <true>
+          <input type="checkbox" id="userAdmin" class="form-check-input" name="is_admin" value="1" checked />
+        </true>
+        <false>
+          <input type="checkbox" id="userAdmin" class="form-check-input" name="is_admin" value="1" />
+        </false>
+      </check>
+    </div>
+
+    <div class="col-12 mb-4 form-check form-switch ms-3">
+      <label for="userActive" class="form-check-label">Actif</label>
+      <check if="{{ @user.is_active OR @user.id == 'new' }}">
+        <true>
+          <input type="checkbox" id="userActive" class="form-check-input" name="is_active" value="1" checked />
+        </true>
+        <false>
+          <input type="checkbox" id="userActive" class="form-check-input" name="is_active" value="1" />
+        </false>
+      </check>
+    </div>
+
+    <div class="col-6">
+      <a href="/admin/users" class="btn btn-light"><i class="bi bi-chevron-left"></i> Retour</a>
+    </div>
+
+    <div class="col-6 text-end">
+      <button class="btn btn-success" type="submit">Valider</button>
+    </div>
+
+  </div>
+
+</form>

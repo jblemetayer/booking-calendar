@@ -1,0 +1,50 @@
+<form action="/{{ @user.login }}/free-booking" method="post" class="row">
+
+<h2 class="fw-bold mb-5">Réserver un créneau libre</h2>
+
+<div class="col-6 mb-2">
+  <label for="eventStartDate" class="form-label">Date de début</label>
+  <input type="date" id="eventStartDate" class="form-control" name="start_date" required />
+</div>
+
+<div class="col-6 mb-4">
+  <label for="eventendDate" class="form-label">Date de fin</label>
+  <input type="date" id="eventendDate" class="form-control" name="end_date" required />
+</div>
+
+<div class="col-12 mb-4">
+  <label for="eventTitle" class="form-label">Couleur</label><br />
+  <repeat group="{{ @colors }}" key="{{ @k }}" value="{{ @color }}" counter="{{ @ctr }}">
+    <div class="form-check form-check-inline">
+      <check if="{{ @ctr==1 }}">
+        <true>
+          <input class="form-check-input" type="radio" name="eventColor" id="event-color-{{ @k }}" value="{{ @k }}" checked>
+        </true>
+        <false>
+          <input class="form-check-input" type="radio" name="eventColor" id="event-color-{{ @k }}" value="{{ @k }}">
+        </false>
+      </check>
+      <label class="form-check-label" for="event-color-{{ @k }}"><span class="badge rounded-pill" style="background-color: {{ @color.bgcolor }}">&nbsp;</span></label>
+    </div>
+  </repeat>
+</div>
+
+<div class="col-12 mb-4">
+  <label for="eventTitle" class="form-label">Libellé dans le calendrier</label>
+  <input type="text" id="eventTitle" class="form-control" name="title" required />
+</div>
+
+<div class="col-12 mb-4 form-check form-switch ms-3">
+  <label for="eventReadonly" class="form-check-label">Bloquant</label>
+  <input type="checkbox" id="eventReadonly" class="form-check-input" name="readonly" value="1" checked />
+</div>
+
+<div class="col-6">
+  <a href="/{{ @user.login }}" class="btn btn-light"><i class="bi bi-chevron-left"></i> Retour</a>
+</div>
+
+<div class="col-6 text-end">
+  <button class="btn btn-success" type="submit">Valider</button>
+</div>
+
+</form>

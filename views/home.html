@@ -1,0 +1,26 @@
+<check if="isset(@counter)">
+  <div class="alert alert-info text-center p-2" role="alert">
+    {{ @counter | raw }}
+  </div>
+</check>
+
+<check if="{{ @date }}">
+  <true>
+    <div id='calendar' data-gotodate="{{ @date }}"></div>
+  </true>
+  <false>
+    <div id='calendar'></div>
+  </false>
+</check>
+
+<check if="{{ @user.id }}">
+  <true>
+    <include href="modals/modalBooking.html" />
+  </true>
+  <false>
+    <include href="modals/modalLogin.html" />
+  </false>
+</check>
+
+<include href="modals/modalUnavailable.html" />
+<include href="modals/modalInfo.html" />

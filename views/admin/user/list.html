@@ -1,0 +1,75 @@
+<h2 class="fw-bold mb-4 clearfix">
+  <div class="dropdown float-start">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <small class="badge rounded-pill text-bg-secondary">{{ @rows | count }}</small> Utilisateurs
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/admin/user/email" onclick="return confirm('Êtes-vous sûr(e) de vouloir envoyer par email les invitations à tous les utilisateurs actifs ?')"><i class="bi bi-envelope"></i> Envoyer les emails d'invitation</a></li>
+      <li><a class="dropdown-item" href="/admin/user/download"><i class="bi bi-download"></i> Télécharger le fichier CSV des utilisateurs</a></li>
+      <li><a class="dropdown-item" href="/admin/bookings/download"><i class="bi bi-download"></i> Télécharger le fichier CSV des réservations</a></li>
+      <li><a class="dropdown-item text-danger" href="/admin/bookings/delete" onclick="return confirm('Êtes-vous sûr(e) de vouloir supprimer toutes les réservations ?')"><i class="bi bi-trash"></i> Supprimer toutes les réservations</a></li>
+    </ul>
+  </div>
+  <a href="/admin/user/new/edit" class="btn btn-success float-end"><i class="bi bi-plus-circle"></i> Nouveau</a>
+  <a href="/admin/user/upload" class="btn btn-warning float-end me-3"><i class="bi bi-upload"></i> Importer</a>
+</h2>
+
+<check if="isset(@message)">
+  <p class="message-flash alert alert-info p-2 text-center"><i class="bi bi-info-circle"></i> {{ @message}} <button type="button" class="float-end btn-close" aria-label="Close" onclick="this.parentNode.style.display = 'none';"></button></p>
+</check>
+
+<table class="table table-striped table-bordered table-hover table-sm mb-0">
+  <thead>
+    <tr>
+      <th class="col-1 text-center"><i class="bi bi-box-arrow-in-right"></i> Login</th>
+      <th class="col-3">Categorie</th>
+      <th class="col-3">Nom</th>
+      <th class="col-2">Email</th>
+      <th class="col-2 text-center">Réservations</th>
+      <th class="col-1"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <repeat group="{{ @rows }}" value="{{ @row }}">
+    <check if="{{ @row.is_active }}">
+      <true>
+        <set op="100" />
+      </true>
+      <false>
+        <set op="50" />
+      </false>
+    </check>
+    <tr>
+      <td class="text-center opacity-{{ @op }}">
+        <check if="{{ @row.is_active }}">
+          <true>
+            <a class="btn btn-sm btn-light" href="/{{ @row.login }}" title="SE CONNECTER">
+              <check if="{{ @row.is_admin }}"><i class="bi bi-person-fill" title="Administrateur"></i>&nbsp;</check>
+              {{ @row.login }}
+            </a>
+          </true>
+          <false>
+            <i class="bi bi-ban text-danger" title="Utilisateur désactivé"></i>
+          </false>
+        </check>
+      </td>
+      <td class="opacity-{{ @op }}">{{ @row.category }}</td>
+      <td class="opacity-{{ @op }}">{{ @row.firstname }} {{ @row.lastname }}</td>
+      <td class="opacity-{{ @op }}">{{ @row.email }}</td>
+      <td class="text-end">{{ @row.booking_counter }}</td>
+      <td class="text-center">
+        <div class="dropdown">
+          <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-gear"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/admin/user/{{ @row.id }}/email" onclick="return confirm('Are you sure to send booking invitation to {{ @row.login }} - {{ @row.firstname }} {{ @row.lastname }} ?')"><i class="bi bi-envelope"></i> Envoyer l'email d'invitation</a></li>
+            <li><a class="dropdown-item" href="/admin/user/{{ @row.id }}/edit"><i class="bi bi-pencil-square"></i> Modifier l'utilisateur</a></li>
+            <li><a class="dropdown-item text-danger" href="/admin/user/{{ @row.id }}/delete" onclick="return confirm('Êtes-vous sûr(e) de vouloir supprimer {{ @row.login }} - {{ @row.firstname }} {{ @row.lastname }} ?')"><i class="bi bi-trash"></i> Supprimer l'utilisateur</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    </repeat>
+  </tbody>
+</table>

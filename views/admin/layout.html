@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Administration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/vendor/bootstrap5.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/vendor/bootstrap-icons1.11.2/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+  </head>
+
+  <body>
+
+    <header class="py-2">
+      <div class="container">
+          <h1 class="fw-bold text-center">
+              <span class="bi bi-gear d-none d-md-inline"> Administration</span>
+              <span class="bi bi-gear d-md-none"></span>
+          </h1>
+          <div class="navbar d-md-none  position-absolute top-0 end-0  mt-1 me-3">
+            <a href="/" class="btn btn btn-outline-secondary d-none d-md-inline"><i class="bi bi-box-arrow-in-right"></i> Quitter</a>
+            <a href="/" class="btn btn btn-outline-secondary d-md-none"><i class="bi bi-box-arrow-in-right"></i>&nbsp;</a>
+          </div>
+      </div>
+    </header>
+
+    <!-- Ici nous mettons le contenu de la page -->
+    <main class="container py-5">
+
+      <include href="{{ @content }}" />
+
+    </main>
+
+    <script src='/vendor/bootstrap5.3.2/js/bootstrap.bundle.min.js'></script>
+  </body>
+</html>

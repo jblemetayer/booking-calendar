@@ -1,0 +1,27 @@
+<form action="/{{ @user.login }}/user-booking" method="post" class="row">
+
+<h2 class="fw-bold mb-5">Réserver pour un utilisateur</h2>
+
+<div class="col-12 mb-4">
+  <label for="eventStartDate" class="form-label">Date de début</label>
+  <input type="date" id="eventStartDate" class="form-control" name="start_date" required />
+</div>
+
+<div class="col-12 mb-4">
+  <label for="eventStartDate" class="form-label">Utilisateur</label>
+  <select class="form-select" name="user_id" required>
+    <repeat group="{{ @users }}" value="{{ @u }}">
+      <option value="{{ @u.id }}">{{ @u.category }} — {{ @u.firstname }} {{ @u.lastname }}</option>
+    </repeat>
+  </select>
+</div>
+
+<div class="col-6">
+  <a href="/{{ @user.login }}" class="btn btn-light"><i class="bi bi-chevron-left"></i> Retour</a>
+</div>
+
+<div class="col-6 text-end">
+  <button class="btn btn-success" type="submit">Valider</button>
+</div>
+
+</form>
