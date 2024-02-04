@@ -34,6 +34,13 @@ php -S localhost:8000 -t public
 
 ## Configuration
 
+Création du dossier tmp utilisé par fatfree pour stocker les fichiers compilés, etc :
+
+```
+mkdir tmp
+sudo chown www-data:username tmp/
+```
+
 Il faut créer le fichier de configuration config/app.conf à partir du modèle existant (app.conf.example) et l'adapter selon vos usages :
 
 ```
