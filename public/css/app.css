@@ -1,0 +1,35 @@
+body {
+  color: #1f2328 !important;
+}
+
+header {
+  background: #f2f2f2;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15),inset 0 -1px 0 rgba(255,255,255,0.15);
+}
+
+header h1 {
+  letter-spacing: -0.1em;
+}
+
+.fc-event-title-container {
+  cursor: pointer;
+}
+
+#calendar {
+  min-height: 80vh;
+}
+
+#calendar .btn-primary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+#calendar .btn-primary:hover {
+  background-color: #5c636a;
+  border-color: #565e64;
+}
+
+#calendar .btn-primary:active {
+  background-color: #565e64;
+  border-color: #51585e;
+}
