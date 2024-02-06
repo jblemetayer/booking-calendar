@@ -5,10 +5,10 @@ Nous sollicitons votre participation pour compléter le calendrier des gardes p�
 En effet, il reste encore des créneaux disponibles où nous aurions besoin de volontaires pour assurer la garde périscolaire. Les jours critiques sont les suivants :
 
 <repeat group="{{ @creneaux }}" value="{{ @creneau }}">
-  <strong>{{ @creneau }}</strong>
+  {{ @creneau }}
 </repeat>
 
-Pour s'inscrire, rendez-vous sur notre plateforme en utilisant le lien suivant : <a href="{{ @website_url }}/{{ @user.login }}">{{ @website_url }}/{{ @user.login }}</a>
+Pour s'inscrire, rendez-vous sur notre plateforme en utilisant le lien suivant : {{ @website_url }}/{{ @user.login }}
 
 Si vous avez des difficultés techniques ou des questions, n'hésitez pas à contacter la personne en charge du périscolaire.
 
