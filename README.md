@@ -26,6 +26,12 @@ Récupération des sources :
 git clone https://github.com/jblemetayer/booking-calendar.git
 ```
 
+Installation des dépendances :
+
+```
+composer install
+```
+
 Pour le lancer :
 
 ```
@@ -54,6 +60,8 @@ La base de données SQLite est embarquée dans le projet. Il faut la créer à p
 
 ```
 cp database/datas.sqlite.example database/datas.sqlite
+sudo chown www-data:username database/datas.sqlite
+sudo chown www-data:username database/
 ```
 
 ## Déployer avec apache
