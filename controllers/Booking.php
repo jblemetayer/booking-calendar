@@ -69,6 +69,7 @@ class Booking {
         $booking->title = "$user->category — $user->firstname $user->lastname";
         $booking->save();
         $f3->set('user', $user);
+        $f3->set('date', date('d/m/Y', strtotime($bookingDate)));
         $message = \Template::instance()->render('emails/confirmation.html');
         $sended = mail($user->email, $f3->get('email.subject_confirmation'), $message, ['From' => $f3->get('email.from')]);
       }
