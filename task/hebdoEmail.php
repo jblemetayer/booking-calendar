@@ -35,13 +35,13 @@ $creneaux = [];
 while ($firstDayWeek <= $lastDayWeek) {
     if ($nbJour != 2) {
       if ($nbJour == 0 && !isset($resultPerDates[$firstDayWeek->format('Y-m-d')])) {
-        $creneaux[] = "2 personnes pour le ".$firstDayWeek->format('Y-m-d');
+        $creneaux[] = "2 personnes pour le ".$firstDayWeek->format('d/m/Y');
       }
       elseif ($nbJour == 0 && count($resultPerDates[$firstDayWeek->format('Y-m-d')]) == 1) {
-        $creneaux[] = "1 personne pour le ".$firstDayWeek->format('Y-m-d');
+        $creneaux[] = "1 personne pour le ".$firstDayWeek->format('d/m/Y');
       }
       elseif (!isset($resultPerDates[$firstDayWeek->format('Y-m-d')])) {
-        $creneaux[] = "1 personne pour le ".$firstDayWeek->format('Y-m-d');
+        $creneaux[] = "1 personne pour le ".$firstDayWeek->format('d/m/Y');
       }
     }
     $nbJour++;
