@@ -1,7 +1,13 @@
 [globals]
 home_title="Booking Calendar"
 home_counter="Vous avez réalisé <strong>%PREV% réservation(s)</strong> sur 5 requises et vous vous êtes engagé à réaliser <strong>%NEXT% réservation(s)</strong> prochainement."
-max_booking_per_date=2
+max_booking_per_date.monday=2
+max_booking_per_date.tuesday=1
+max_booking_per_date.wednesday=0
+max_booking_per_date.thursday=1
+max_booking_per_date.friday=1
+max_booking_per_date.saturday=0
+max_booking_per_date.sunday=0
 day_reminder_email_delay=2
 debug_level=3
 website_url="https://votresiteweb.com"

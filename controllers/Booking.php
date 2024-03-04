@@ -37,12 +37,10 @@ class Booking {
     if ($f3->get('PARAMS.date') < date('Y-m-d')) {
       echo 'false'; exit;
     }
-    if (!in_array(date_format(date_create($f3->get('PARAMS.date')), 'w'), [1,2,4,5])) {
-      echo 'false'; exit;
-    }
     $booking = new \DB\SQL\Mapper($f3->get('DB'),'booking');
     $items = $booking->find(['start_date <= ? AND end_date >= ?', $f3->get('PARAMS.date'), $f3->get('PARAMS.date')]);
-    if (count($items) >= $f3->get('max_booking_per_date')) {
+    $day = strtolower(date('l', strtotime($f3->get('PARAMS.date'))));
+    if (count($items) >= $f3->get('max_booking_per_date.'.$day)) {
       echo 'false'; exit;
     }
     foreach ($items as $item) {
