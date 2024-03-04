@@ -57,7 +57,8 @@ if ($creneaux) {
     $f3->set('user', $row);
     $f3->set('creneaux', $creneaux);
     $message = \Template::instance()->render('emails/hebdo.html');
-    if (mail($row['email'], $f3->get('email.subject_hebdo'), $message, ['From' => $f3->get('email.from')])) {
+    $sended = mb_send_mail($row['email'], $f3->get('email.subject_hebdo'), $message, ['From' => $f3->get('email.from'), 'Content-Type' => 'text/plain; charset=UTF-8', 'MIME-Version' => '1.0', 'Content-Transfer-Encoding' => '8bit']);
+    if ($sended) {
       $success++;
     }
     $counter++;

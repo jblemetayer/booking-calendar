@@ -24,7 +24,8 @@ foreach ($rows as $row) {
   $f3->set('user', $row);
   $f3->set('date', date('d/m/Y', strtotime('+'.$f3->get('day_reminder_email_delay').' days')));
   $message = \Template::instance()->render('emails/reminder.html');
-  if (mail($row['email'], $f3->get('email.subject_reminder'), $message, ['From' => $f3->get('email.from')])) {
+  $sended = mb_send_mail($row['email'], $f3->get('email.subject_reminder'), $message, ['From' => $f3->get('email.from'), 'Content-Type' => 'text/plain; charset=UTF-8', 'MIME-Version' => '1.0', 'Content-Transfer-Encoding' => '8bit']);
+  if ($sended) {
     $success++;
   }
   $counter++;

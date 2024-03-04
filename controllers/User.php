@@ -92,7 +92,7 @@ class User {
     if ($user->email && $user->is_active) {
       $f3->set('user', $user);
       $message = \Template::instance()->render('emails/invitation.html');
-      $sended = mail($user->email, $f3->get('email.subject_invitation'), $message, ['From' => $f3->get('email.from')]);
+      $sended = mb_send_mail($user->email, $f3->get('email.subject_invitation'), $message, ['From' => $f3->get('email.from'), 'Content-Type' => 'text/plain; charset=UTF-8', 'MIME-Version' => '1.0', 'Content-Transfer-Encoding' => '8bit']);
       $f3->set('SESSION.flash_message', ($sended)? 'Email envoyé avec succès' : 'Erreur lors de l\'envoi de l\'email');
     }
     $f3->reroute('/admin/users');
@@ -107,7 +107,8 @@ class User {
       if ($row->email && $row->is_active) {
         $f3->set('user', $row);
         $message = \Template::instance()->render('emails/invitation.html');
-        if (mail($row->email, $f3->get('email.subject_invitation'), $message, ['From' => $f3->get('email.from')])) {
+        $sended = mb_send_mail($row->email, $f3->get('email.subject_invitation'), $message, ['From' => $f3->get('email.from'), 'Content-Type' => 'text/plain; charset=UTF-8', 'MIME-Version' => '1.0', 'Content-Transfer-Encoding' => '8bit']);
+        if ($sended) {
           $success++;
         }
         $counter++;

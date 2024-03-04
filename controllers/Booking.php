@@ -71,7 +71,7 @@ class Booking {
         $f3->set('user', $user);
         $f3->set('date', date('d/m/Y', strtotime($bookingDate)));
         $message = \Template::instance()->render('emails/confirmation.html');
-        $sended = mail($user->email, $f3->get('email.subject_confirmation'), $message, ['From' => $f3->get('email.from')]);
+        $sended = mb_send_mail($user->email, $f3->get('email.subject_confirmation'), $message, ['From' => $f3->get('email.from'), 'Content-Type' => 'text/plain; charset=UTF-8', 'MIME-Version' => '1.0', 'Content-Transfer-Encoding' => '8bit']);
       }
     }
     $f3->reroute("/$user->login?date=$bookingDate");
