@@ -1,5 +1,5 @@
 <?php
-class User {
+class Admin {
 
   static function generateLoginCode($user) {
     $found = true;
@@ -167,4 +167,23 @@ class User {
     }
   }
 
+  function bookingsDownload($f3) {
+    $rows = $f3->get('DB')->exec('SELECT u.login, u.category, u.firstname, u.lastname, u.email, b.start_date, b.end_date FROM user u INNER JOIN booking b ON u.id = b.user_id ORDER BY start_date;');
+    $csv = "LOGIN,CATEGORY,FIRSTNAME,LASTNAME,EMAIL,START_DATE,END_DATE\n";
+    foreach ($rows as $row) {
+      $csv .= $row['login'].','.$row['category'].','.$row['firstname'].','.$row['lastname'].','.$row['email'].','.$row['start_date'].','.$row['end_date']."\n";
+    }
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="'.date('YmdHi').'_bookings.csv'.'"');
+    echo $csv;
+  }
+
+  function removeAll($f3) {
+      $f3->get('DB')->exec('DELETE FROM booking;');
+      $f3->reroute('/admin/users');
+  }
+
+  function index($f3) {
+    $f3->reroute('/admin/users');
+  }
 }
