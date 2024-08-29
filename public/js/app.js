@@ -11,9 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
         daysOfWeek: [1,2,4,5],
       },
       height: '100%',
-      eventBackgroundColor: '#cfe2ff',
-      eventBorderColor: '#9ec5fe',
-      eventTextColor: '#052c65',
       headerToolbar: {
         start: 'prev',
         center: 'title',
@@ -23,44 +20,24 @@ document.addEventListener('DOMContentLoaded', function() {
         { url: '/booking' }
       ],
       eventClick: function(info) {
-        const link = document.getElementById("bookingDeleteAction");
-        if (link) {
-          link.href = link.href.replace('_id_', info.event.id);
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+          document.getElementById("eventModal").innerHTML = this.responseText;
+          const eventModal = new bootstrap.Modal('#eventModal');
+-         eventModal.show();
         }
-        document.querySelector('#eventInfo .eventDate').textContent = (info.event.start.getDate()).toString().padStart(2, '0') + '/' + (info.event.start.getMonth()+1).toString().padStart(2, '0') + '/' + info.event.start.getFullYear();
-        document.querySelector('#eventInfo .eventTitle').textContent = info.event.title;
-        if ((info.event.title).indexOf('—') == -1) {
-          document.querySelector('#eventInfo .eventWithUser').style.display = 'none';
-        } else {
-          document.querySelector('#eventInfo .eventWithUser').style.display = 'inline';
-        }
-        const eventDelete = new bootstrap.Modal('#eventInfo');
-        eventDelete.show();
+        xhttp.open("GET", "/booking/show/"+info.event.id);
+        xhttp.send();
       },
       dateClick: function(info) {
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
-          if (this.responseText == 'true') {
-            const inputs = document.getElementById("bookingForm").elements;
-            inputs["bookingDate"].value = info.dateStr;
-            document.querySelector('#dateConfirm .eventDate').textContent = (info.date.getDate()).toString().padStart(2, '0') + '/' + (info.date.getMonth()+1).toString().padStart(2, '0') + '/' + info.date.getFullYear();
-            const dateConfirm = new bootstrap.Modal('#dateConfirm');
-            dateConfirm.show();
-          } else {
-            document.querySelector('#dateUnavailable .eventDate').textContent = (info.date.getDate()).toString().padStart(2, '0') + '/' + (info.date.getMonth()+1).toString().padStart(2, '0') + '/' + info.date.getFullYear();
-            const dateUnavailable = new bootstrap.Modal('#dateUnavailable');
-            dateUnavailable.show();
-          }
+          document.getElementById("eventModal").innerHTML = this.responseText;
+          const eventModal = new bootstrap.Modal('#eventModal');
+-         eventModal.show();
         }
-        const inputs = document.getElementById("bookingForm").elements;
-        if (inputs["bookingConfirm"] === undefined) {
-          const dateConfirm = new bootstrap.Modal('#dateConfirm');
-          dateConfirm.show();
-        } else {
-          xhttp.open("GET", "/booking/"+info.dateStr+"/bookable");
-          xhttp.send();
-        }
-
+        xhttp.open("GET", "/booking/"+info.dateStr);
+        xhttp.send();
       }
     });
     if (calendarEl.hasAttribute('data-gotodate')) {

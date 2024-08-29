@@ -24,10 +24,10 @@
               </button>
               <ul class="dropdown-menu">
                 <check if="{{ @user.is_admin }}">
-                  <li><a class="dropdown-item" href="/{{ @user.login }}/free-booking"><i class="bi bi-calendar2-plus"></i> Réserver un créneau libre</a></li>
-                  <li><a class="dropdown-item" href="/{{ @user.login }}/user-booking"><i class="bi bi-calendar-plus"></i> Réserver pour un utilisateur</a></li>
+                  <li><a class="dropdown-item" href="/free-booking"><i class="bi bi-calendar2-plus"></i> Réserver un créneau libre</a></li>
+                  <li><a class="dropdown-item" href="/user-booking"><i class="bi bi-calendar-plus"></i> Réserver pour un utilisateur</a></li>
                 </check>
-                <li><a class="dropdown-item" href="/"><i class="bi bi-box-arrow-left"></i> Déconnexion</a></li>
+                <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-left"></i> Déconnexion</a></li>
               </ul>
             </div>
             <div class="navbar d-md-none  position-absolute top-0 end-0  mt-1 me-3">
@@ -42,10 +42,10 @@
                 <div class="offcanvas-body">
                   <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <check if="{{ @user.is_admin }}">
-                      <li class="nav-item"><a class="nav-link" href="/{{ @user.login }}/free-booking"><i class="bi bi-calendar2-plus"></i> Réserver un créneau libre</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/{{ @user.login }}/user-booking"><i class="bi bi-calendar-plus"></i> Réserver pour un utilisateur</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/free-booking"><i class="bi bi-calendar2-plus"></i> Réserver un créneau libre</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/user-booking"><i class="bi bi-calendar-plus"></i> Réserver pour un utilisateur</a></li>
                     </check>
-                    <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-box-arrow-left"></i> Déconnexion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout"><i class="bi bi-box-arrow-left"></i> Déconnexion</a></li>
                   </ul>
                 </div>
               </div>

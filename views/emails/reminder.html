@@ -1,8 +1,10 @@
 Cher(e) {{ @user.firstname }} {{ @user.lastname }},
 
-Nous tenons à vous rappeler de votre réservation pour la garde périscolaire qui aura lieu dans {{ @day_reminder_email_delay }} jours, le {{ @date }}.
+Nous tenons à vous rappeler de votre réservation : {{ @user.event }}
 
-Nous vous prions de bien vouloir tenir votre engagement et, le cas échéant, en cas d'imprévu, d'en informer dès que possible la personne en charge du périscolaire.
+Elle aura lieu dans {{ @day_reminder_email_delay }} jours, le {{ @date }}.
+
+Nous vous prions de bien vouloir tenir votre engagement et, le cas échéant, en cas d'imprévu, d'en informer dès que possible la personne en charge de l'application.
 
 Cordialement,
 L'équipe des Lucioles

@@ -12,15 +12,4 @@
     <div id='calendar'></div>
   </false>
 </check>
-
-<check if="{{ @user.id }}">
-  <true>
-    <include href="modals/modalBooking.html" />
-  </true>
-  <false>
-    <include href="modals/modalLogin.html" />
-  </false>
-</check>
-
-<include href="modals/modalUnavailable.html" />
-<include href="modals/modalInfo.html" />
+<div class="modal fade align-middle" id="eventModal" tabindex="-1" aria-hidden="true"></div>

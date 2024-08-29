@@ -14,5 +14,8 @@ $f3->set('UPLOADS', sys_get_temp_dir()."/bc-uploads/");
 $f3->config($f3->get('ROOT').'/config/app.conf');
 $f3->config($f3->get('ROOT').'/config/routes.conf');
 $f3->set('DEBUG', $f3->get('debug_level'));
+$f3->set('CACHE', true);
+
+new Session();
 
 $f3->run();

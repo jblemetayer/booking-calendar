@@ -13,40 +13,32 @@ $f3->set('LANGUAGE','fr-FR');
 $f3->config($f3->get('ROOT').'/config/app.conf');
 $f3->set('DEBUG', 3);
 
-$today = strtotime(date('Y-m-d'));
+$today = strtotime(date('Y-11-02'));
 $firstDayWeek = new \DateTime();
 $lastDayWeek = new \DateTime();
-$firstDayWeek->setTimestamp(strtotime('next monday', $today));
-$lastDayWeek->setTimestamp(strtotime('next friday', $today));
 
-$rows = $f3->get('DB')->exec('select b.start_date, b.user_id, b.title from booking b WHERE b.user_id IS NOT NULL AND b.start_date >= "'.$firstDayWeek->format('Y-m-d').'" AND b.start_date <= "'.$lastDayWeek->format('Y-m-d').'"');
-
-$resultPerDates = [];
-foreach ($rows as $row) {
-  if (!isset($resultPerDates[$row['start_date']])) {
-    $resultPerDates[$row['start_date']] = [];
-  }
-  $resultPerDates[$row['start_date']][] = $row['user_id'].' - '.$row['title'];
-}
-
-$nbJour = 0;
+$booking = new \DB\SQL\Mapper(\Base::instance()->get('DB'),'booking');
+$events = $f3->get('events');
 $creneaux = [];
-
-while ($firstDayWeek <= $lastDayWeek) {
-    if ($nbJour != 2) {
-      if ($nbJour == 0 && !isset($resultPerDates[$firstDayWeek->format('Y-m-d')])) {
-        $creneaux[] = "2 personnes pour le ".$firstDayWeek->format('d/m/Y');
-      }
-      elseif ($nbJour == 0 && count($resultPerDates[$firstDayWeek->format('Y-m-d')]) == 1) {
-        $creneaux[] = "1 personne pour le ".$firstDayWeek->format('d/m/Y');
-      }
-      elseif (!isset($resultPerDates[$firstDayWeek->format('Y-m-d')])) {
-        $creneaux[] = "1 personne pour le ".$firstDayWeek->format('d/m/Y');
-      }
+foreach ($events as $event) {
+  $firstDayWeek->setTimestamp(strtotime('next monday', $today));
+  $lastDayWeek->setTimestamp(strtotime('next friday', $today));
+  while ($firstDayWeek <= $lastDayWeek) {
+    $readonly = $booking->count(['start_date <= ? AND end_date >= ? AND readonly=?', $firstDayWeek->format('Y-m-d'), $firstDayWeek->format('Y-m-d'), 1]);
+    if ($readonly) {
+      $firstDayWeek->modify('+1 day');
+      continue;
     }
-    $nbJour++;
+    $bookings = $booking->find(['start_date >= ? AND end_date <= ? AND event=?', $firstDayWeek->format('Y-m-d'), $firstDayWeek->format('Y-m-d'), $event['title']]);
+    $day = strtolower($firstDayWeek->format('l'));
+    if (isset($event['max_booking_per_date'][$day]) && $event['max_booking_per_date'][$day] > count($bookings)) {
+      $creneaux[] =  $event['title'].' — '.($event['max_booking_per_date'][$day] - count($bookings))." personne(s) pour le ".$firstDayWeek->format('d/m/Y');
+    }
     $firstDayWeek->modify('+1 day');
+  }
 }
+var_dump($creneaux);exit;
+
 if ($creneaux) {
   $rows = $f3->get('DB')->exec('select u.login, u.firstname, u.lastname, u.email from user u WHERE u.is_active = 1');
   $counter = 0;
