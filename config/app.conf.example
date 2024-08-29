@@ -1,16 +1,33 @@
 [globals]
 home_title="Booking Calendar"
-home_counter="Vous avez réalisé <strong>%PREV% réservation(s)</strong> sur 5 requises et vous vous êtes engagé à réaliser <strong>%NEXT% réservation(s)</strong> prochainement."
-max_booking_per_date.monday=2
-max_booking_per_date.tuesday=1
-max_booking_per_date.wednesday=0
-max_booking_per_date.thursday=1
-max_booking_per_date.friday=1
-max_booking_per_date.saturday=0
-max_booking_per_date.sunday=0
+home_counter="<strong>Vous devez réaliser 5 Event 1 et 1 Event 2 au cours de l'année</strong>%SUMMARY%"
 day_reminder_email_delay=2
 debug_level=3
 website_url="https://votresiteweb.com"
+
+[events.event1]
+id="event1"
+title="Event 1"
+color="primary"
+max_booking_per_date.monday=2
+max_booking_per_date.tuesday=1
+max_booking_per_date.wednesday=0
+max_booking_per_date.thursday=2
+max_booking_per_date.friday=1
+max_booking_per_date.saturday=0
+max_booking_per_date.sunday=0
+
+[events.event2]
+id="event2"
+title="Event 2"
+color="warning"
+max_booking_per_date.monday=0
+max_booking_per_date.tuesday=0
+max_booking_per_date.wednesday=0
+max_booking_per_date.thursday=0
+max_booking_per_date.friday=1
+max_booking_per_date.saturday=0
+max_booking_per_date.sunday=0
 
 
 [colors.secondary]
@@ -40,7 +57,7 @@ txtcolor="#495057"
 
 [email]
 from="noreply@votresiteweb.com"
-subject_invitation="Booking Calendat App"
+subject_invitation="Booking Calendar App"
 subject_reminder="Rappel de votre réservation"
 subject_hebdo="Créneaux disponibles"
 subject_confirmation="Confirmation de votre réservation"
