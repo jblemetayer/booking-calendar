@@ -19,7 +19,7 @@ class Admin {
     }
     $f3->set(
       'rows',
-      $f3->get('DB')->exec('select u.id, u.login, u.category, u.firstname, u.lastname, u.email, u.is_admin, u.is_active, count(b.user_id) as booking_counter from user u LEFT JOIN booking b ON u.id = b.user_id GROUP BY u.id ORDER BY booking_counter DESC, u.id ASC')
+      $f3->get('DB')->exec('select u.id, u.login, u.category, u.firstname, u.lastname, u.email, u.is_admin, u.is_active, count(b.user_id) as booking_counter from user u LEFT JOIN booking b ON u.id = b.user_id GROUP BY u.id ORDER BY booking_counter DESC, u.category ASC')
     );
     $f3->set('content', 'admin/user/list.html');
     echo \Template::instance()->render('admin/layout.html');
