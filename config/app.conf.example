@@ -57,7 +57,9 @@ txtcolor="#495057"
 
 [email]
 from="noreply@votresiteweb.com"
+to="admin@votresiteweb.com"
 subject_invitation="Booking Calendar App"
 subject_reminder="Rappel de votre réservation"
 subject_hebdo="Créneaux disponibles"
 subject_confirmation="Confirmation de votre réservation"
+subject_annulation="Annulation d'une réservation"

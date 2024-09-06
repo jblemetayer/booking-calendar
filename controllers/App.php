@@ -269,7 +269,14 @@ class App {
       $f3->error(404);
     }
     if (($user->id == $booking->user_id && $booking->start_date != date('Y-m-d'))||($user->is_admin)) {
+      $f3->set('user', $user);
+      $f3->set('event', $booking->event);
+      $f3->set('date', date('d/m/Y', strtotime($booking->start_date)));
+      $message = \Template::instance()->render('emails/annulation.html');
       $booking->erase();
+      if (!$user->is_admin) {
+        $sended = mb_send_mail($f3->get('email.to'), $f3->get('email.subject_annulation'), $message, ['From' => $f3->get('email.from'), 'Content-Type' => 'text/plain; charset=UTF-8', 'MIME-Version' => '1.0', 'Content-Transfer-Encoding' => '8bit']);
+      }
     }
     $f3->reroute("/?date=$booking->start_date");
   }
