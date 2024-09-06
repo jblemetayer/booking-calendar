@@ -13,7 +13,7 @@ $f3->set('LANGUAGE','fr-FR');
 $f3->config($f3->get('ROOT').'/config/app.conf');
 $f3->set('DEBUG', 3);
 
-$today = strtotime(date('Y-11-02'));
+$today = strtotime(date('Y-m-d'));
 $firstDayWeek = new \DateTime();
 $lastDayWeek = new \DateTime();
 
@@ -37,7 +37,6 @@ foreach ($events as $event) {
     $firstDayWeek->modify('+1 day');
   }
 }
-var_dump($creneaux);exit;
 
 if ($creneaux) {
   $rows = $f3->get('DB')->exec('select u.login, u.firstname, u.lastname, u.email from user u WHERE u.is_active = 1');
