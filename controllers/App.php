@@ -229,7 +229,7 @@ class App {
     $f3->set('title', $f3->get('home_title'));
     $f3->set('content', 'userBooking.html');
     $f3->set('user', $user);
-    $f3->set('users', $user->find(['is_active=?', true]));
+    $f3->set('users', $user->find(['is_active=?', true], ['order' => 'category asc']));
     $f3->set('events', $this->getConfEvents());
     echo \Template::instance()->render('layout.html');
   }
