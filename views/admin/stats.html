@@ -1,0 +1,64 @@
+<a href="/admin" class=""><i class="bi bi-chevron-compact-left"></i> Retour</a>
+<h2 class="fw-bold mb-4 clearfix mt-3">
+  Bilan des contributions
+  <form action="/admin/stats" method="get" class="float-end w-25">
+    <select name="filter" class="form-select" onchange="this.form.submit()">
+      <option value="">Tout</option>
+      <repeat group="{{ @allEvents }}" value="{{ @event }}">
+        <option value="{{ @event }}" <check if="@filter == @event">selected</check>>{{ @event }}</option>
+      </repeat>
+    </select>
+  </form>
+</h2>
+
+<table class="table table-striped table-bordered table-hover mb-0">
+  <thead>
+    <tr>
+      <th class="col">Famille</th>
+      <repeat group="{{ @events }}" value="{{ @event }}">
+        <th class="col-1 text-center">{{ @event }}</th>
+      </repeat>
+      <check if="@filter">
+        <false>
+        <th class="col-1 text-center"><strong>Total</strong></th>
+        </false>
+      </check>
+    </tr>
+  </thead>
+  <tbody>
+    <repeat group="{{ @stats }}" key="{{ @category }}" value="{{ @stat }}">
+      <tr>
+        <td>
+          <p class="mb-0">
+            <check if="@stat['count'] > 1">
+              <true><i class="bi bi-people-fill" title="Famille biparentale"></i></true>
+              <false><i class="bi bi-person" title="Famille monoparentale"></i></false>
+            </check>
+            {{ @category }}
+          </p>
+          <repeat group="{{ @stat['details'] }}" key="{{ @person }}" value="{{ @personStat }}">
+            <p class="mb-0 text-end text-muted small">{{ @person }}</p>
+          </repeat>
+        </td>
+        <repeat group="{{ @events }}" value="{{ @event }}">
+          <td class="text-end">
+            <p class="mb-0"><strong>{{ @stat['global'][@event] }}</strong></p>
+            <repeat group="{{ @stat['details'] }}" value="{{ @personStat }}">
+              <p class="mb-0 text-end text-muted small">{{ @personStat[@event] }}</p>
+            </repeat>
+          </td>
+        </repeat>
+        <check if="@filter">
+          <false>
+          <td class="text-end">
+            <p class="mb-0"><strong>{{ @stat['global'][@'Total'] }}</strong></p>
+            <repeat group="{{ @stat['details'] }}" value="{{ @personStat }}">
+              <p class="mb-0 text-end text-muted small">{{ @personStat['Total'] }}</p>
+            </repeat>
+          </td>
+          </false>
+        </check>
+      </tr>
+    </repeat>
+  </tbody>
+</table>

@@ -25,6 +25,48 @@ class Admin {
     echo \Template::instance()->render('admin/layout.html');
   }
 
+  function stats($f3) {
+    $filter = $f3->get('GET.filter');
+    $user = new \DB\SQL\Mapper($f3->get('DB'),'user');
+    $users = $user->find();
+    $events = $f3->get('DB')->exec('select DISTINCT b.event from booking b WHERE b.readonly != 1 ORDER BY b.event ASC');
+    $allEvents = array_fill_keys(array_column($events, 'event'), 0);
+    $events = ($filter)? [$filter => 0] : $allEvents;
+    $stats = [];
+    foreach ($users as $row) {
+      $person = $row->firstname.' '.$row->lastname;
+      if (!isset($stats[$row->category])) {
+        $count = $f3->get('DB')->exec('select COUNT(u.id) as count from user u WHERE u.category = "'.$row->category.'"')[0]['count'];
+        $stats[$row->category] = [];
+        $stats[$row->category]['count'] = $count;
+        $stats[$row->category]['global'] = $events + ['Total' => 0];
+        $stats[$row->category]['details'] = [];
+      }
+      if (!isset($stats[$row->category]['details'][$person])) {
+        $stats[$row->category]['details'][$person] = $events + ['Total' => 0];
+      }
+      foreach ($events as $event => $val) {
+        $count = $f3->get('DB')->exec('select COUNT(b.id) as count from booking b WHERE b.user_id = '.$row->id.' AND b.event = "'.$event.'"')[0]['count'];
+        $stats[$row->category]['details'][$person][$event] = $count;
+        $stats[$row->category]['details'][$person]['Total'] += $count;
+        $stats[$row->category]['global'][$event] += $count;
+        $stats[$row->category]['global']['Total'] += $count;
+      }
+    }
+
+    $cmp = ($filter) ?: 'Total';
+    uasort($stats, function($a, $b) use ($cmp) {
+      return $b['global'][$cmp] <=> $a['global'][$cmp];
+    });
+
+    $f3->set('filter', $filter);
+    $f3->set('allEvents', array_keys($allEvents));
+    $f3->set('events', array_keys($events));
+    $f3->set('stats', $stats);
+    $f3->set('content', 'admin/stats.html');
+    echo \Template::instance()->render('admin/layout.html');
+  }
+
   function edit($f3) {
     $id = $f3->get('PARAMS.id');
     $user = new \DB\SQL\Mapper($f3->get('DB'),'user');
