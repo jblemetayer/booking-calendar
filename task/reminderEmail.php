@@ -15,13 +15,14 @@ $f3->set('DEBUG', 3);
 
 
 $date = date('Y-m-d', strtotime('+'.$f3->get('day_reminder_email_delay').' days'));
-$rows = $f3->get('DB')->exec('select u.login, u.firstname, u.lastname, u.email, u.event from user u INNER JOIN booking b ON u.id = b.user_id WHERE u.is_active = 1 AND b.start_date = "'.$date.'"');
+$rows = $f3->get('DB')->exec('select u.login, u.firstname, u.lastname, u.email, b.event from user u INNER JOIN booking b ON u.id = b.user_id WHERE u.is_active = 1 AND b.start_date = "'.$date.'"');
 $counter = 0;
 $success = 0;
 foreach ($rows as $row) {
   if (!$row['email'])
     continue;
   $f3->set('user', $row);
+  $f3->set('event', $row['event']);
   $f3->set('date', date('d/m/Y', strtotime('+'.$f3->get('day_reminder_email_delay').' days')));
   $message = \Template::instance()->render('emails/reminder.html');
   $sended = mb_send_mail($row['email'], $f3->get('email.subject_reminder'), $message, ['From' => $f3->get('email.from'), 'Content-Type' => 'text/plain; charset=UTF-8', 'MIME-Version' => '1.0', 'Content-Transfer-Encoding' => '8bit']);
